@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جدول مكثف - شهر واحد + 10 أيام مشاريع</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.1"><path d="M0,50 Q250,0 500,50 T1000,50 L1000,100 L0,100 Z"/></svg>');
+            background-size: cover;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .week-container {
+            margin-bottom: 30px;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .schedule-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .schedule-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .schedule-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .schedule-table tr:hover {
+            background-color: #e3f2fd;
+            transition: background-color 0.3s ease;
+        }
+        
+        .friday-row {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+        }
+        
+        .friday-row td {
+            color: white;
+            font-weight: 600;
+        }
+        
+        .daily-schedule {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .schedule-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+        
+        .schedule-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .time-slot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        
+        .time-slot:last-child {
+            border-bottom: none;
+        }
+        
+        .time {
+            font-weight: 600;
+            color: #764ba2;
+        }
+        
+        .activity {
+            color: #555;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .project-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .project-features {
+            list-style: none;
+        }
+        
+        .project-features li {
+            padding: 5px 0;
+            position: relative;
+            padding-right: 25px;
+        }
+        
+        .project-features li::before {
+            content: '✅';
+            position: absolute;
+            right: 0;
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .tip-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .tip-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tip-card ul {
+            list-style: none;
+            padding-right: 20px;
+        }
+        
+        .tip-card li {
+            padding: 5px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        
+        .tip-card li:last-child {
+            border-bottom: none;
+        }
+        
+        .final-result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .final-result h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: white;
+            border: none;
+        }
+        
+        .final-result ul {
+            list-style: none;
+            font-size: 1.1em;
+            margin: 20px 0;
+        }
+        
+        .final-result li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .date-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px;
+        }
+        
+        .emoji {
+            font-size: 1.2em;
+        }
+        
+        .motivation {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+            
+            .header {
+                page-break-after: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .schedule-table {
+                font-size: 0.9em;
+            }
+            
+            .schedule-table th,
+            .schedule-table td {
+                padding: 8px 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 جدول مكثف - شهر واحد + 10 أيام مشاريع</h1>
+            <p>رحلة التحول إلى مطور Angular محترف</p>
+        </div>
+        
+        <div class="content">
+            <!-- الشهر الأول: التعلم المكثف -->
+            <div class="section">
+                <h2>🗓️ الشهر الأول: التعلم المكثف</h2>
+                <p><strong>📅 من 5 يوليو إلى 4 أغسطس 2025 (30 يوم)</strong></p>
+                
+                <!-- الأسبوع الأول -->
+                <div class="week-container">
+                    <h3>الأسبوع الأول (5-11 يوليو)</h3>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>اليوم</th>
+                                <th>الموضوع</th>
+                                <th>المنهج اليومي</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>5 يوليو</strong></td>
+                                <td>سبت</td>
+                                <td>HTML + CSS</td>
+                                <td>HTML5 + CSS3 + Flexbox + Grid</td>
+                            </tr>
+                            <tr>
+                                <td><strong>6 يوليو</strong></td>
+                                <td>أحد</td>
+                                <td>Bootstrap + Sass</td>
+                                <td>Bootstrap 5 + Sass/SCSS</td>
+                            </tr>
+                            <tr>
+                                <td><strong>7 يوليو</strong></td>
+                                <td>اثنين</td>
+                                <td>JavaScript الأساسيات</td>
+                                <td>Variables + Functions + ES6+</td>
+                            </tr>
+                            <tr>
+                                <td><strong>8 يوليو</strong></td>
+                                <td>ثلاثاء</td>
+                                <td>JavaScript المتقدم</td>
+                                <td>Promises + Async/Await + DOM</td>
+                            </tr>
+                            <tr>
+                                <td><strong>9 يوليو</strong></td>
+                                <td>أربعاء</td>
+                                <td>TypeScript</td>
+                                <td>Types + Interfaces + Classes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>10 يوليو</strong></td>
+                                <td>خميس</td>
+                                <td>Git + NPM</td>
+                                <td>Git Commands + NPM + Build Tools</td>
+                            </tr>
+                            <tr class="friday-row">
+                                <td><strong>11 يوليو</strong></td>
+                                <td><strong>جمعة</strong></td>
+                                <td><strong>🔄 مراجعة MVC</strong></td>
+                                <td><strong>مراجعة MVC + الأسبوع الأول</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- الأسبوع الثاني -->
+                <div class="week-container">
+                    <h3>الأسبوع الثاني (12-18 يوليو)</h3>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>اليوم</th>
+                                <th>الموضوع</th>
+                                <th>المنهج اليومي</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>12 يوليو</strong></td>
+                                <td>سبت</td>
+                                <td>Angular مقدمة</td>
+                                <td>CLI + Project Structure + Components</td>
+                            </tr>
+                            <tr>
+                                <td><strong>13 يوليو</strong></td>
+                                <td>أحد</td>
+                                <td>Data Binding + Directives</td>
+                                <td>Interpolation + Property + Event + Structural</td>
+                            </tr>
+                            <tr>
+                                <td><strong>14 يوليو</strong></td>
+                                <td>اثنين</td>
+                                <td>Components Communication</td>
+                                <td>@Input + @Output + ViewChild</td>
+                            </tr>
+                            <tr>
+                                <td><strong>15 يوليو</strong></td>
+                                <td>ثلاثاء</td>
+                                <td>Services + DI</td>
+                                <td>Services + Dependency Injection + Lifecycle</td>
+                            </tr>
+                            <tr>
+                                <td><strong>16 يوليو</strong></td>
+                                <td>أربعاء</td>
+                                <td>Routing</td>
+                                <td>Router + Navigation + Guards</td>
+                            </tr>
+                            <tr>
+                                <td><strong>17 يوليو</strong></td>
+                                <td>خميس</td>
+                                <td>Forms</td>
+                                <td>Template-driven + Reactive Forms</td>
+                            </tr>
+                            <tr class="friday-row">
+                                <td><strong>18 يوليو</strong></td>
+                                <td><strong>جمعة</strong></td>
+                                <td><strong>🔄 مراجعة MVC</strong></td>
+                                <td><strong>مراجعة MVC + Angular الأساسيات</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- الأسبوع الثالث -->
+                <div class="week-container">
+                    <h3>الأسبوع الثالث (19-25 يوليو)</h3>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>اليوم</th>
+                                <th>الموضوع</th>
+                                <th>المنهج اليومي</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>19 يوليو</strong></td>
+                                <td>سبت</td>
+                                <td>HTTP Client</td>
+                                <td>HttpClient + REST APIs + Observables</td>
+                            </tr>
+                            <tr>
+                                <td><strong>20 يوليو</strong></td>
+                                <td>أحد</td>
+                                <td>RxJS + Interceptors</td>
+                                <td>Operators + HTTP Interceptors</td>
+                            </tr>
+                            <tr>
+                                <td><strong>21 يوليو</strong></td>
+                                <td>اثنين</td>
+                                <td>Pipes + Error Handling</td>
+                                <td>Built-in + Custom Pipes + Error Handler</td>
+                            </tr>
+                            <tr>
+                                <td><strong>22 يوليو</strong></td>
+                                <td>ثلاثاء</td>
+                                <td>Testing + Material</td>
+                                <td>Unit Testing + Angular Material</td>
+                            </tr>
+                            <tr>
+                                <td><strong>23 يوليو</strong></td>
+                                <td>أربعاء</td>
+                                <td>.NET API الأساسيات</td>
+                                <td>REST + Controllers + Models</td>
+                            </tr>
+                            <tr>
+                                <td><strong>24 يوليو</strong></td>
+                                <td>خميس</td>
+                                <td>.NET API متقدم</td>
+                                <td>Entity Framework + CRUD + DTOs</td>
+                            </tr>
+                            <tr class="friday-row">
+                                <td><strong>25 يوليو</strong></td>
+                                <td><strong>جمعة</strong></td>
+                                <td><strong>🔄 مراجعة MVC</strong></td>
+                                <td><strong>مراجعة MVC + Angular المتقدم</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- الأسبوع الرابع -->
+                <div class="week-container">
+                    <h3>الأسبوع الرابع (26 يوليو - 1 أغسطس)</h3>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>اليوم</th>
+                                <th>الموضوع</th>
+                                <th>المنهج اليومي</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>26 يوليو</strong></td>
+                                <td>سبت</td>
+                                <td>Authentication</td>
+                                <td>JWT + Identity + Guards</td>
+                            </tr>
+                            <tr>
+                                <td><strong>27 يوليو</strong></td>
+                                <td>أحد</td>
+                                <td>API Best Practices</td>
+                                <td>Validation + Error Handling + CORS</td>
+                            </tr>
+                            <tr>
+                                <td><strong>28 يوليو</strong></td>
+                                <td>اثنين</td>
+                                <td>Angular + API Integration</td>
+                                <td>Full Stack Connection</td>
+                            </tr>
+                            <tr>
+                                <td><strong>29 يوليو</strong></td>
+                                <td>ثلاثاء</td>
+                                <td>State Management</td>
+                                <td>Services Pattern + BehaviorSubject</td>
+                            </tr>
+                            <tr>
+                                <td><strong>30 يوليو</strong></td>
+                                <td>أربعاء</td>
+                                <td>Performance + Deployment</td>
+                                <td>Optimization + Build + Deploy</td>
+                            </tr>
+                            <tr>
+                                <td><strong>31 يوليو</strong></td>
+                                <td>خميس</td>
+                                <td>مراجعة شاملة</td>
+                                <td>مراجعة كل المفاهيم + حل مشاكل</td>
+                            </tr>
+                            <tr class="friday-row">
+                                <td><strong>1 أغسطس</strong></td>
+                                <td><strong>جمعة</strong></td>
+                                <td><strong>🔄 مراجعة MVC</strong></td>
+                                <td><strong>مراجعة MVC + الشهر كامل</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- أيام الإنهاء -->
+                <div class="week-container">
+                    <h3>أيام الإنهاء (2-4 أغسطس)</h3>
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>التاريخ</th>
+                                <th>اليوم</th>
+                                <th>الموضوع</th>
+                                <th>المنهج اليومي</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>2 أغسطس</strong></td>
+                                <td>سبت</td>
+                                <td>Final Review</td>
+                                <td>مراجعة نهائية شاملة</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3 أغسطس</strong></td>
+                                <td>أحد</td>
+                                <td>تطبيق مكثف</td>
+                                <td>بناء app صغير كامل</td>
+                            </tr>
+                            <tr>
+                                <td><strong>4 أغسطس</strong></td>
+                                <td>اثنين</td>
+                                <td>تحضير للمشاريع</td>
+                                <td>Setup + Planning</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- فترة المشاريع العملية -->
+            <div class="section">
+                <h2>🗓️ فترة المشاريع العملية</h2>
+                <p><strong>📅 من 5 أغسطس إلى 14 أغسطس 2025 (10 أيام)</strong></p>
+                
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>التاريخ</th>
+                            <th>اليوم</th>
+                            <th>المشروع</th>
+                            <th>التفاصيل</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>5 أغسطس</strong></td>
+                            <td>ثلاثاء</td>
+                            <td>مشروع 1 - يوم 1</td>
+                            <td><strong>Todo App</strong>: Setup + Auth + Basic CRUD</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6 أغسطس</strong></td>
+                            <td>أربعاء</td>
+                            <td>مشروع 1 - يوم 2</td>
+                            <td><strong>Todo App</strong>: Advanced Features + API</td>
+                        </tr>
+                        <tr>
+                            <td><strong>7 أغسطس</strong></td>
+                            <td>خميس</td>
+                            <td>مشروع 1 - يوم 3</td>
+                            <td><strong>Todo App</strong>: Testing + Deployment</td>
+                        </tr>
+                        <tr class="friday-row">
+                            <td><strong>8 أغسطس</strong></td>
+                            <td><strong>جمعة</strong></td>
+                            <td><strong>🔄 مراجعة MVC</strong></td>
+                            <td><strong>مراجعة MVC + Project Review</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>9 أغسطس</strong></td>
+                            <td>سبت</td>
+                            <td>مشروع 2 - يوم 1</td>
+                            <td><strong>E-commerce</strong>: Products + Cart</td>
+                        </tr>
+                        <tr>
+                            <td><strong>10 أغسطس</strong></td>
+                            <td>أحد</td>
+                            <td>مشروع 2 - يوم 2</td>
+                            <td><strong>E-commerce</strong>: Orders + Dashboard</td>
+                        </tr>
+                        <tr>
+                            <td><strong>11 أغسطس</strong></td>
+                            <td>اثنين</td>
+                            <td>مشروع 2 - يوم 3</td>
+                            <td><strong>E-commerce</strong>: Reports + Admin Panel</td>
+                        </tr>
+                        <tr>
+                            <td><strong>12 أغسطس</strong></td>
+                            <td>ثلاثاء</td>
+                            <td>مشروع 3 - يوم 1</td>
+                            <td><strong>Social Media</strong>: User System + Posts</td>
+                        </tr>
+                        <tr>
+                            <td><strong>13 أغسطس</strong></td>
+                            <td>أربعاء</td>
+                            <td>مشروع 3 - يوم 2</td>
+                            <td><strong>Social Media</strong>: Comments + Real-time</td>
+                        </tr>
+                        <tr>
+                            <td><strong>14 أغسطس</strong></td>
+                            <td>خميس</td>
+                            <td>Portfolio + Deploy</td>
+                            <td>تجميع المشاريع + CV + LinkedIn</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- الجدول اليومي المكثف -->
+            <div class="section">
+                <h2>⏰ الجدول اليومي المكثف</h2>
+                
+                <div class="daily-schedule">
+                    <div class="schedule-card">
+                        <h4>أيام الدراسة (سبت - أربعاء)</h4>
+                        <div class="time-slot">
+                            <span class="time">9:00 - 10:00</span>
+                            <span class="activity">كورس م. أيمن عبد الرحيم</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">10:30 - 12:30</span>
+                            <span class="activity">دراسة الموضوع الأساسي</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">1:30 - 3:30</span>
+                            <span class="activity">تطبيق عملي مكثف</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">4:00 - 6:00</span>
+                            <span class="activity">مراجعة وحل مشاكل</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">7:00 - 9:00</span>
+                            <span class="activity">تطبيق إضافي + مشاريع صغيرة</span>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <h4>أيام الخميس (يوم مكثف)</h4>
+                        <div class="time-slot">
+                            <span class="time">9:00 - 10:00</span>
+                            <span class="activity">كورس م. أيمن عبد الرحيم</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">10:30 - 1:00</span>
+                            <span class="activity">دراسة الموضوع الأساسي (مكثف)</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">2:00 - 4:30</span>
+                            <span class="activity">تطبيق عملي مكثف</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">5:00 - 7:00</span>
+                            <span class="activity">مراجعة وحل مشاكل</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">7:30 - 8:30</span>
+                            <span class="activity">تطبيق سريع</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">9:00 مساءً</span>
+                            <span class="activity">🎉 خروج مع الأصحاب</span>
+                        </div>
+                    </div>
+                    
+                    <div class="schedule-card">
+                        <h4>أيام الجمعة (مراجعة MVC)</h4>
+                        <div class="time-slot">
+                            <span class="time">9:00 - 10:00</span>
+                            <span class="activity">كورس م. أيمن عبد الرحيم</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">10:30 - 12:00</span>
+                            <span class="activity">مراجعة MVC Controllers</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">1:00 - 2:30</span>
+                            <span class="activity">مراجعة MVC Models + Views</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">3:00 - 4:30</span>
+                            <span class="activity">مراجعة الأسبوع الماضي</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">5:00 - 6:30</span>
+                            <span class="activity">حل مشاكل + تطبيق</span>
+                        </div>
+                        <div class="time-slot">
+                            <span class="time">7:00 - 8:00</span>
+                            <span class="activity">راحة أو مراجعة خفيفة</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- المشاريع النهائية -->
+            <div class="section">
+                <h2>🎯 المشاريع النهائية</h2>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h4>المشروع الأول: Todo App (3 أيام)</h4>
+                        <ul class="project-features">
+                            <li>User Authentication (JWT)</li>
+                            <li>CRUD Operations</li>
+                            <li>Search & Filter</li>
+                            <li>Categories & Priority</li>
+                            <li>Responsive Design</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h4>المشروع الثاني: E-commerce (3 أيام)</h4>
+                        <ul class="project-features">
+                            <li>Product Management</li>
+                            <li>Shopping Cart</li>
+                            <li>Order System</li>
+                            <li>Admin Dashboard</li>
+                            <li>Charts & Reports</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h4>المشروع الثالث: Social Media (2 أيام)</h4>
+                        <ul class="project-features">
+                            <li>User Profiles</li>
+                            <li>Posts & Comments</li>
+                            <li>Like System</li>
+                            <li>Real-time Updates</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h4>Portfolio Day (1 يوم)</h4>
+                        <ul class="project-features">
+                            <li>GitHub Portfolio</li>
+                            <li>CV Update</li>
+                            <li>LinkedIn Profile</li>
+                            <li>Demo Videos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- خطة التنفيذ المكثفة -->
+            <div class="section">
+                <h2>📊 خطة التنفيذ المكثفة</h2>
+                
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <h4>الأسبوع الأول: الأساسيات</h4>
+                        <p><strong>الهدف:</strong> بناء قاعدة قوية</p>
+                        <p><strong>المخرجات:</strong> 2 مشروع صغير بـ HTML/CSS/JS</p>
+                        <p><strong>الوقت:</strong> 8 ساعات يومياً</p>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h4>الأسبوع الثاني: Angular Core</h4>
+                        <p><strong>الهدف:</strong> إتقان Angular الأساسيات</p>
+                        <p><strong>المخرجات:</strong> 3 تطبيقات Angular بسيطة</p>
+                        <p><strong>الوقت:</strong> 8 ساعات يومياً</p>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h4>الأسبوع الثالث: التكامل</h4>
+                        <p><strong>الهدف:</strong> ربط Frontend مع Backend</p>
+                        <p><strong>المخرجات:</strong> Full Stack App بسيط</p>
+                        <p><strong>الوقت:</strong> 8 ساعات يومياً</p>
+                    </div>
+                    
+                    <div class="project-card">
+                        <h4>الأسبوع الرابع: الإتقان</h4>
+                        <p><strong>الهدف:</strong> مفاهيم متقدمة + مراجعة</p>
+                        <p><strong>المخرجات:</strong> App متقدم جاهز للإنتاج</p>
+                        <p><strong>الوقت:</strong> 8 ساعات يومياً</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- نصائح للنجاح -->
+            <div class="section">
+                <h2>🔥 نصائح للنجاح في الجدول المكثف</h2>
+                
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4>💪 الإنتاجية</h4>
+                        <ul>
+                            <li>🍅 <strong>Pomodoro:</strong> 25 دقيقة دراسة + 5 دقائق راحة</li>
+                            <li>💧 <strong>هيدرات:</strong> كوب مياه كل ساعة</li>
+                            <li>🏃 <strong>رياضة:</strong> 30 دقيقة يومياً</li>
+                            <li>😴 <strong>نوم:</strong> 7-8 ساعات ليلاً</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4>📚 التعلم</h4>
+                        <ul>
+                            <li>📝 <strong>اكتب بإيدك:</strong> كل كود تشوفه</li>
+                            <li>🎯 <strong>طبق فوراً:</strong> كل مفهوم تتعلمه</li>
+                            <li>🤔 <strong>اسأل كتير:</strong> في المجتمعات</li>
+                            <li>🔄 <strong>راجع يومياً:</strong> آخر 3 مفاهيم</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4>🚀 التحفيز</h4>
+                        <ul>
+                            <li>🎯 <strong>أهداف صغيرة:</strong> كل يوم هدف واضح</li>
+                            <li>🏆 <strong>كافئ نفسك:</strong> بعد كل إنجاز</li>
+                            <li>👥 <strong>شارك التقدم:</strong> مع الأصدقاء</li>
+                            <li>📊 <strong>تتبع التقدم:</strong> checklist يومي</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- النتيجة النهائية -->
+            <div class="final-result">
+                <h3>🎊 النتيجة النهائية</h3>
+                <p><strong>بعد 40 يوم (شهر + 10 أيام) هتكون:</strong></p>
+                <ul>
+                    <li><span class="emoji">🚀</span> <strong>Angular Developer</strong> محترف</li>
+                    <li><span class="emoji">🔧</span> <strong>Full Stack</strong> قادر على بناء تطبيقات كاملة</li>
+                    <li><span class="emoji">📁</span> <strong>Portfolio</strong> قوي يضم 3 مشاريع</li>
+                    <li><span class="emoji">💼</span> <strong>جاهز للسوق</strong> والتقديم للوظائف</li>
+                </ul>
+                
+                <div style="margin-top: 30px;">
+                    <div class="date-badge">البداية: 5 يوليو 2025</div>
+                    <div class="date-badge">النهاية: 14 أغسطس 2025</div>
+                </div>
+            </div>
+            
+            <div class="motivation">
+                تقدر تعملها! 💪🔥
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Print functionality
+        function printToPDF() {
+            window.print();
+        }
+        
+        // Add print button
+        document.addEventListener('DOMContentLoaded', function() {
+            const printBtn = document.createElement('button');
+            printBtn.innerHTML = '🖨️ طباعة كـ PDF';
+            printBtn.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 25px;
+                font-size: 14px;
+                font-weight: bold;
+                cursor: pointer;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 1000;
+                transition: all 0.3s ease;
+            `;
+            
+            printBtn.addEventListener('click', printToPDF);
+            printBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.3)';
+            });
+            printBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+            });
+            
+            document.body.appendChild(printBtn);
+        });
+    </script>
+</body>
+</html>
